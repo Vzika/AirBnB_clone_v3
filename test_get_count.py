@@ -4,7 +4,6 @@
 from models import storage
 from models.state import State
 
-
 my_state = State("Rivers")
 storage.new(my_state)
 my_state = State("Osun")
