@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-"""return the status of your API
+"""
+return the status of your API
 """
 from flask import Flask, make_response
 from models import storage
@@ -8,15 +9,14 @@ from api.v1.views import app_views
 
 app = Flask(__name__)
 
+app.register_blueprint(app_views)
+
 @app.teardown_appcontext
 def teardown_appcontext(exception):
     """
     close storage
     """
     storage.close()
-
-app.register_blueprint(app_views)
-
 
 @app.errorhandler(404)
 def not_found(error):
