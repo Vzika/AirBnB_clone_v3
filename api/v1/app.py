@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """return the status of your API
 """
-
 from flask import Flask, make_response
 from models import storage
 from os import getenv
