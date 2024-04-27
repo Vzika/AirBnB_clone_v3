@@ -1,7 +1,7 @@
 #!/usr/bin/python3
-""" Index file for api/v1
 """
-
+Index file for api/v1
+"""
 from api.v1.views import app_views
 from models.amenity import Amenity
 from models.city import City
@@ -25,7 +25,6 @@ def stats():
     """
     objects = {"amenities": Amenity, "cities": City, "places": Place,
                "reviews": Review, "states": State, "users": User}
-    
     counts = {}
     for key, obj in objects.items():
         counts[key] = storage.count(obj)
