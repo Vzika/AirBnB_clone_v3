@@ -68,4 +68,4 @@ def update_state(state_id):
     except KeyError:
         pass
     storage.save()
-    return make_response(state, 200)
+    return make_response(state.to_dict(), 200)
