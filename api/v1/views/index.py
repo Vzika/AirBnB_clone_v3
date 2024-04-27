@@ -16,7 +16,7 @@ from models import storage
 @app_views.route('/status', strict_slashes=False)
 def status():
     """ return status """
-    return {"status": "OK"}
+    return jsonify({"status": "OK"})
 
 
 @app_views.route('/stats', strict_slashes=False)
@@ -25,7 +25,7 @@ def stats():
     """
     objects = {"amenities": Amenity, "cities": City, "places": Place,
                "reviews": Review, "states": State, "users": User}
-    
+
     counts = {}
     for key, obj in objects.items():
         counts[key] = storage.count(obj)

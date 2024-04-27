@@ -154,7 +154,8 @@ EOF  all  create  destroy  help  quit  show  update
 No known bugs at this time. 
 
 ## Authors
-Ngozi Ndukauba - [Github](https://github.com/Vzika) / [Twitter](https://twitter.com/NdukaubaNgozi)  
+Ngozi Ndukauba - [Github](https://github.com/Vzika) / [Twitter](https://twitter.com/NdukaubaNgozi)
+Martins Okanlawon - [Github](https://github.com/PrimotionStudio) / [Twitter](https://twitter.com/ThePrimotion)
 Jennifer Huang - [Github](https://github.com/jhuang10123) / [Twitter](https://twitter.com/earthtojhuang)
 
 Second part of Airbnb: Joann Vuong
