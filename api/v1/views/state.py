@@ -3,9 +3,9 @@
 Index file for api.v1.views
 """
 from api.v1.views import app_views
+from models import storage
 from models.state import State
 from flask import jsonify, abort, make_response, request
-from models import storage
 
 
 @app_views.route('/states', strict_slashes=False)
@@ -13,7 +13,7 @@ def get_states():
     """
     return all states
     """
-    return storage.all(State)
+    return jsonify(storage.all(State))
 
 
 @app_views.route('/states/<state_id>', strict_slashes=False)
@@ -24,8 +24,7 @@ def get_state(state_id):
     state = storage.get(State, state_id)
     if state is None:
         abort(404)
-    return state.to_dict()
-
+    return jsonify(state.to_dict())
 
 @app_views.route('/states/<state_id>', methods=['DELETE'], strict_slashes=False)
 def delete_state(state_id):
@@ -65,6 +64,8 @@ def update_state(state_id):
         body.pop('id')
         body.pop('created_at')
         body.pop('update_at')
+        for k, v in body:
+            setattr(state, k, v)
     except KeyError:
         pass
     storage.save()
