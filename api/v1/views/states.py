@@ -57,17 +57,34 @@ def create_state():
 
 
 @app_views.route('/states/<state_id>', methods=['PUT'], strict_slashes=False)
+# def update_state(state_id):
+#     """updates a state object
+#     """
+#     state = storage.get(State, state_id)
+#     if state is None:
+#         abort(404)
+#     update = request.get_json()
+#     if update is None:
+#         abort(400, "Not a JSON")
+#     for key, value in update.items():
+#         if key not in ["id", "created_at", "updated_at"]:
+#             setattr(state, key, value)
+#     state.save()
+#     return state.to_dict(), 200
+
 def update_state(state_id):
-    """updates a state object
+    """
+    return an updated dictinary by id
     """
     state = storage.get(State, state_id)
-    if state is None:
-        abort(404)
-    update = request.get_json()
-    if update is None:
-        abort(400, "Not a JSON")
-    for key, value in update.items():
-        if key not in ["id", "created_at", "updated_at"]:
-            setattr(state, key, value)
-    state.save()
-    return state.to_dict(), 200
+    body = request.get_json()
+    try:
+        body.pop('id')
+        body.pop('created_at')
+        body.pop('update_at')
+        for k, v in body:
+            setattr(state, k, v)
+    except KeyError:
+        pass
+    storage.save()
+    return (state.to_dict(), 200)
