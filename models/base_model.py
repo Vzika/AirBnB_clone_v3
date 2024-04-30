@@ -7,6 +7,7 @@ from datetime import datetime
 import models
 from os import getenv
 import sqlalchemy
+import hashlib
 from sqlalchemy import Column, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 import uuid
@@ -29,6 +30,12 @@ class BaseModel:
     def __init__(self, *args, **kwargs):
         """Initialization of the base model"""
         if kwargs:
+            if kwargs.get("password") is not None:
+                unhashed = kwargs.get("password").encode('utf-8')
+                md5_hash = hashlib.md5()
+                md5_hash.update(unhashed)
+                hashed = md5_hash.hexdigest()
+                kwargs.update({"password": hashed})
             for key, value in kwargs.items():
                 if key != "__class__":
                     setattr(self, key, value)
@@ -66,6 +73,9 @@ class BaseModel:
         if "updated_at" in new_dict:
             new_dict["updated_at"] = new_dict["updated_at"].strftime(time)
         new_dict["__class__"] = self.__class__.__name__
+        strage = getenv("HBNB_TYPE_STORAGE")
+        if strage == "db":
+            del new_dict["password"]
         if "_sa_instance_state" in new_dict:
             del new_dict["_sa_instance_state"]
         return new_dict
