@@ -13,18 +13,18 @@ app.register_blueprint(app_views)
 CORS(app, resources={r"/*": {"origins": "0.0.0.0"}})
 
 
-@app.teardown_appcontext
-def teardown_appcontext(exception):
-    """close storage
-    """
-    storage.close()
-
-
 @app.errorhandler(404)
 def not_found(error):
     """handles a JSON-formatted 404 status code response
     """
     return make_response({"error": "Not found"}, 404)
+
+
+@app.teardown_appcontext
+def teardown_appcontext(exception):
+    """close storage
+    """
+    storage.close()
 
 
 if __name__ == "__main__":
